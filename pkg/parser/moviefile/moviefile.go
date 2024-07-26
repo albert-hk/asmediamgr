@@ -165,7 +165,7 @@ func (p *MovieFile) patternMatch(entry *dirinfo.Entry, pattern *Pattern) (*movie
 	}
 	tmdbService := parser.GetDefaultTmdbService()
 	if info.tmdbid == nil {
-		searchOpts := common.DefaultTmdbSearchOpts
+		searchOpts := common.GetGetDefaultTmdbSearchOpts()
 		if info.year != nil {
 			searchOpts["year"] = strconv.Itoa(*info.year)
 		}
@@ -186,7 +186,7 @@ func (p *MovieFile) patternMatch(entry *dirinfo.Entry, pattern *Pattern) (*movie
 		n := int(results.Results[0].ID)
 		info.tmdbid = &n
 	}
-	detail, err := tmdbService.GetMovieDetails(*info.tmdbid, common.DefaultTmdbSearchOpts)
+	detail, err := tmdbService.GetMovieDetails(*info.tmdbid, common.GetGetDefaultTmdbSearchOpts())
 	if err != nil {
 		return nil, err
 	}

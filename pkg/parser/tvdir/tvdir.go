@@ -290,7 +290,7 @@ func (p *TvDir) matchPattern(entry *dirinfo.Entry, pattern *Pattern) (info *tvIn
 	tmdbService := parser.GetDefaultTmdbService()
 	level.Info(p.logger).Log("msg", "search tv show", "name", info.name, "year", info.year)
 	if info.tmdbid == nil {
-		searchOpts := common.DefaultTmdbSearchOpts
+		searchOpts := common.GetGetDefaultTmdbSearchOpts()
 		if info.year != nil {
 			searchOpts["year"] = strconv.Itoa(*info.year)
 		}
@@ -311,7 +311,7 @@ func (p *TvDir) matchPattern(entry *dirinfo.Entry, pattern *Pattern) (info *tvIn
 		tmdbid := int(results.Results[0].ID)
 		info.tmdbid = &tmdbid
 	}
-	detail, err := tmdbService.GetTVDetails(*info.tmdbid, common.DefaultTmdbSearchOpts)
+	detail, err := tmdbService.GetTVDetails(*info.tmdbid, common.GetGetDefaultTmdbSearchOpts())
 	if err != nil {
 		return nil, err
 	}

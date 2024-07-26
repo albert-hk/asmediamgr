@@ -211,7 +211,7 @@ func (p *TvEpFile) patternMatch(entry *dirinfo.Entry, pattern *Pattern) (info *t
 	}
 	tmdbService := parser.GetDefaultTmdbService()
 	if info.tmdbid == nil {
-		urlOptions := common.DefaultTmdbSearchOpts
+		urlOptions := common.GetGetDefaultTmdbSearchOpts()
 		if info.year != nil {
 			urlOptions["year"] = strconv.Itoa(*info.year)
 		}
@@ -232,7 +232,7 @@ func (p *TvEpFile) patternMatch(entry *dirinfo.Entry, pattern *Pattern) (info *t
 		tmdbid := int(tvs.Results[0].ID)
 		info.tmdbid = &tmdbid
 	}
-	tvDetail, err := tmdbService.GetTVDetails(*info.tmdbid, common.DefaultTmdbSearchOpts)
+	tvDetail, err := tmdbService.GetTVDetails(*info.tmdbid, common.GetGetDefaultTmdbSearchOpts())
 	if err != nil {
 		return nil, fmt.Errorf("get pre tmdb and season, tmdbid = %d, err = %v", info.tmdbid, err)
 	}
